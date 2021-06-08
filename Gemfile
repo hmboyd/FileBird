@@ -8,7 +8,7 @@ gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
 # Use a real db like postgres
 gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
+#gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -62,3 +62,5 @@ gem 'sinatra', require: false
 gem 'slim'
 gem 'sidekiq-status'
 gem 'sidekiq-cron'
+
+gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"

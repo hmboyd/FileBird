@@ -39,6 +39,7 @@
 yarn-debug.log*
 .yarn-integrity
 
-/Mounts
+
+/Mounts/PRX/*
 /public/downloads
 /config/database.yml

@@ -1,24 +1,14 @@
-# README
+# FileBird - FTP manager for broadcast services
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# WARNING THE PASSWORD IS STORED IN PLAIN TEXT IN THIS APPLICATION!
+## I really should fix it...but thats more work.
 
-Things you may want to cover:
+# setup
 
-* Ruby version
+app can be deployed with capistrano
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. make your server
+2. Set database.yml with your info (we're using postgresql)
+3. navigate to server after app is online and enter in an ftp server /settings
+4. navigate to /downloaders and enter in some info
+  1. you need a leading slash (/) on the FTP file path
