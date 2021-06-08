@@ -1,8 +1,9 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.11.2"
+lock "~> 3.16.0"
 
 set :application, "FileBird"
 set :repo_url, "git@github.com:WPR-Engineering/FileBird.git"
+#set :branch, 'master'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -13,24 +14,33 @@ set :deploy_to, "/var/www/FileBird"
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 set :format, :pretty
+#set :rails_env, "production"
+set :rvm_type, :system
+set :rvm_ruby_version, '3.0.0'
+set :rvm_custom_path, '/home/deployer/.rvm'
 
-#set :rvm_ruby_version, '3.0.0'
-#set :rvm_type, :system
+
+set :log_level, :debug
+
+
+set :use_sudo, true
 
 # You can configure the Airbrussh format using :format_options.
 # These are the defaults.
 # set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
 
 # Default value for :pty is false
-set :pty, true
+set :pty, false
 
 # Default value for :linked_files is []
-append :linked_files, "config/database.yml"
+#append :linked_files, "config/database.yml"
+set :linked_files, %w{config/database.yml}
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
 #set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
 #set :linked_files, fetch(:linked_files, []).push('config/database.yml')
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 
 # Default value for default_env is {}
