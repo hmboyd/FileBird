@@ -1,0 +1,20 @@
+download_high_priority:
+  cron: "/15 * * * *"
+  class: "FtpQueueJob"
+  queue: default
+  args: "1"
+download_med_priority:
+  cron: "/30 * * * *"
+  class: "FtpQueueJob"
+  queue: default
+  args: "2"
+download_low_priority:
+  cron: "12 /1 * * *"
+  class: "FtpQueueJob"
+  queue: default
+  args: "3"
+download_daily_overnight:
+  cron: "22 03 * * *"
+  class: "FtpQueueJob"
+  queue: default
+  args: "4"

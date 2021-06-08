@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Downloaders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ftp path</th>
+      <th>Rename</th>
+      <th>Rename prefix</th>
+      <th>Setting</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @downloaders.each do |downloader| %>
+      <tr>
+        <td><%= downloader.ftp_path %></td>
+        <td><%= downloader.rename %></td>
+        <td><%= downloader.rename_prefix %></td>
+        <td><%= downloader.setting_id %></td>
+        <td><%= link_to 'Show', downloader %></td>
+        <td><%= link_to 'Edit', edit_downloader_path(downloader) %></td>
+        <td><%= link_to 'Destroy', downloader, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Downloader', new_downloader_path %>

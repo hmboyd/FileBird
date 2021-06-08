@@ -1,0 +1,42 @@
+<%= form_with(model: downloader) do |form| %>
+  <% if downloader.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(downloader.errors.count, "error") %> prohibited this downloader from being saved:</h2>
+
+      <ul>
+        <% downloader.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :ftp_path %>
+    <%= form.text_field :ftp_path %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rename %>
+    <%= form.check_box :rename %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rename_prefix %>
+    <%= form.text_field :rename_prefix %>
+  </div>
+
+  <div class="field">
+    <%= form.label :setting_id %>
+    <%= form.text_field :setting_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :interval %>
+    <%= form.text_field :interval %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

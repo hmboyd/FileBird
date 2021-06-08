@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Instance name:</strong>
+  <%= @setting.instance_name %>
+</p>
+
+<p>
+  <strong>Ftp server:</strong>
+  <%= @setting.ftp_server %>
+</p>
+
+<p>
+  <strong>Ftp port:</strong>
+  <%= @setting.ftp_port %>
+</p>
+
+<p>
+  <strong>Ftp password:</strong>
+  <%= @setting.ftp_password %>
+</p>
+
+<%= link_to 'Edit', edit_setting_path(@setting) %> |
+<%= link_to 'Back', settings_path %>
