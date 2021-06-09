@@ -13,3 +13,21 @@
  *= require_tree .
  *= require_self
  */
+ @import "chota.css";
+
+ :root {
+   --bg-color: #262323;
+   --bg-secondary-color: #131316;
+   --color-primary: #14a761;
+   --color-lightGrey: #d2d6dd;
+   --color-grey: #ccc;
+   --color-darkGrey: #777;
+   --color-error: #d43939;
+   --color-success: #28bd14;
+   --grid-maxWidth: 120rem;
+   --grid-gutter: 2rem;
+   --font-size: 1.6rem;
+   --font-color: #f5f5f5;
+   --font-family-sans: sans-serif;
+   --font-family-mono: monaco, "Consolas", "Lucida Console", monospace;
+ }
