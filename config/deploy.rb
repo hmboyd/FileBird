@@ -15,33 +15,38 @@ set :deploy_to, "/var/www/FileBird"
 # set :format, :airbrussh
 set :format, :pretty
 #set :rails_env, "production"
-set :rvm_type, :system
+set :rvm_type, :auto
 set :rvm_ruby_version, '3.0.0'
-set :rvm_custom_path, '/home/deployer/.rvm'
+#set :rvm_custom_path, '/home/deployer/.rvm'
 
 
 set :log_level, :debug
 
 
-set :use_sudo, true
+set :use_sudo, false
 
 # You can configure the Airbrussh format using :format_options.
 # These are the defaults.
 # set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
 
 # Default value for :pty is false
-set :pty, false
+set :pty, true
 
 # Default value for :linked_files is []
 #append :linked_files, "config/database.yml"
-set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/database.yml config/secrets.yml}
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
 #set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
 #set :linked_files, fetch(:linked_files, []).push('config/database.yml')
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/downloads Mounts/PRX}
 
+
+SSHKit.config.command_map[:sidekiq] = "bundle exec sidekiq"
+SSHKit.config.command_map[:sidekiqctl] = "bundle exec sidekiqctl"
+set :init_system, :upstart
+set :upstart_service_name, 'sidekiq'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
