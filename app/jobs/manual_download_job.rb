@@ -11,9 +11,12 @@ class ManualDownloadJob < ApplicationJob
 
 
     download_source = Downloader.find(downloader)
+
+    logger.debug "current processing status:#{download_source.processing_status}"
+
     logger.info "setting downloader to processing"
 
-    logger.debug "#{download_source.processing_status}"
+
     download_source.processing_status = "true"
 
     logger.debug "setting job start time"
@@ -56,7 +59,7 @@ class ManualDownloadJob < ApplicationJob
           logger.debug "updating file_listings database with new date modified"
           filedata = FileListing.find_by(file_name: file)
           filedata.last_modified = date_modified
-          filedata.file_path = download_source.ftp_path
+          filedata.file_path = ftp.pwd
           logger.debug "saving database entry"
           filedata.save
 
@@ -72,7 +75,7 @@ class ManualDownloadJob < ApplicationJob
         filedata = FileListing.new
         filedata.file_name = file
         filedata.last_modified = date_modified
-        filedata.file_path = download_source.ftp_path
+        filedata.file_path = ftp.pwd
         logger.debug "saving new file listing"
         filedata.save
       end
@@ -86,7 +89,7 @@ class ManualDownloadJob < ApplicationJob
     download_source.save
     #dl_status = download_source.processing_status.to_s
     logger.debug "setting downloader with ID #{downloader} processing set to #{download_source.processing_status.to_s}"
-
+  logger.info "Done with FTP downloading Job"
   end
   logger.info "Done with FTP downloading Job"
   puts "DONE!"

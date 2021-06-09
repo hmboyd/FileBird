@@ -59,7 +59,7 @@ class DownloadersController < ApplicationController
   def start_job
     logger.info "Maunal download triggered from web interface"
     redirect_back fallback_location: '/', notice: "Download Triggerd"
-    ManualDownloadJob.perform_now(params[:id])
+    ManualDownloadJob.perform_later(params[:id])
   end
 
   private
