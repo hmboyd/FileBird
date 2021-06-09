@@ -14,6 +14,9 @@ class FtpDownloaderJob < ApplicationJob
 
     logger.debug "#{download_source.processing_status}"
     download_source.processing_status = "true"
+
+    logger.debug "setting job start time"
+    download_source.start_time = Time.now
     download_source.save
     logger.debug "setting downloader with ID #{downloader} processing set to #{download_source.processing_status.to_s}"
 
