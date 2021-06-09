@@ -1,0 +1,20 @@
+= form_with(model: file_listing) do |form|
+  - if file_listing.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(file_listing.errors.count, "error")
+        prohibited this file_listing from being saved:
+      %ul
+        - file_listing.errors.each do |error|
+          %li= error.full_message
+  .field
+    = form.label :file_name
+    = form.text_field :file_name
+  .field
+    = form.label :file_path
+    = form.text_field :file_path
+  .field
+    = form.label :last_modified
+    = form.datetime_select :last_modified
+  .actions
+    = form.submit

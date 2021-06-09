@@ -1,0 +1,17 @@
+%p#notice= notice
+%p
+  %strong Ftp path:
+  = @downloader.ftp_path
+%p
+  %strong Rename:
+  = @downloader.rename
+%p
+  %strong Rename prefix:
+  = @downloader.rename_prefix
+%p
+  %strong Setting:
+  = @downloader.setting_id
+= link_to 'Edit', edit_downloader_path(@downloader)
+|
+= link_to 'Back', downloaders_path
+= link_to 'One Time Download', start_download_job_path

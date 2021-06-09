@@ -1,4 +1,5 @@
-class FtpDownloaderJob < ApplicationJob
+class ManualDownloadJob < ApplicationJob
+  queue_as :default
   queue_as :default
   require 'net/ftp'
   require 'fileutils'
@@ -44,8 +45,8 @@ class FtpDownloaderJob < ApplicationJob
       logger.debug "last modified (unix time): #{date_modified} "
       if FileListing.find_by(file_name: file).present?
         logger.info "file (#{file}), found in databse."
-        if FileListing.find_by(file_name: file).last_modified < date_modified
-          logger.info "^^^^^^^^^^^^^^^^file on FTP site is newer, downloading updated version!^^^^^^^^^^^^^^^^^^^^^^"
+
+          logger.info "^^^^^^^^^^^^^^^^Manual Re-Download^^^^^^^^^^^^^^^^^^^^^^"
           logger.debug "file is #{download_source.setting.instance_name} / #{download_source.ftp_path}/#{file}"
           ftp.getbinaryfile(file, "public/downloads/#{file}")
           logger.debug "downloaded, moving file to #{final_path}#{file}"
@@ -55,11 +56,12 @@ class FtpDownloaderJob < ApplicationJob
           logger.debug "updating file_listings database with new date modified"
           filedata = FileListing.find_by(file_name: file)
           filedata.last_modified = date_modified
+          filedata.file_path = download_source.ftp_path
           logger.debug "saving database entry"
           filedata.save
 
-        end
       else
+        logger.info "Manual download of new files started"
         logger.debug "new file, downloading #{file}"
         ftp.getbinaryfile(file, "public/downloads/#{file}")
         logger.info  "new file downloaded #{file}"
@@ -70,6 +72,7 @@ class FtpDownloaderJob < ApplicationJob
         filedata = FileListing.new
         filedata.file_name = file
         filedata.last_modified = date_modified
+        filedata.file_path = download_source.ftp_path
         logger.debug "saving new file listing"
         filedata.save
       end

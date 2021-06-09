@@ -57,9 +57,9 @@ class DownloadersController < ApplicationController
   end
 
   def start_job
-    print "download triggerd!"
+    logger.info "Maunal download triggered from web interface"
     redirect_back fallback_location: '/', notice: "Download Triggerd"
-    FtpDownloaderJob.perform_now(params[:id])
+    ManualDownloadJob.perform_now(params[:id])
   end
 
   private

@@ -1,0 +1,24 @@
+%p#notice= notice
+%h1 Downloaders
+%table
+  %thead
+    %tr
+      %th Ftp path
+      %th Rename
+      %th Rename prefix
+      %th Setting
+      %th Priority
+      %th{:colspan => "3"}
+  %tbody
+    - @downloaders.each do |downloader|
+      %tr
+        %td= downloader.ftp_path
+        %td= downloader.rename
+        %td= downloader.rename_prefix
+        %td= downloader.setting_id
+        %td= downloader.interval
+        %td= link_to 'Show', downloader
+        %td= link_to 'Edit', edit_downloader_path(downloader)
+        %td= link_to 'Destroy', downloader, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Downloader', new_downloader_path

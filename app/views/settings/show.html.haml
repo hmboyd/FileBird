@@ -1,0 +1,16 @@
+%p#notice= notice
+%p
+  %strong Instance name:
+  = @setting.instance_name
+%p
+  %strong Ftp server:
+  = @setting.ftp_server
+%p
+  %strong Ftp port:
+  = @setting.ftp_port
+%p
+  %strong Ftp password:
+  = @setting.ftp_password
+= link_to 'Edit', edit_setting_path(@setting)
+|
+= link_to 'Back', settings_path

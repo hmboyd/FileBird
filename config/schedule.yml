@@ -19,6 +19,6 @@ download_daily_overnight:
   queue: default
   args: "4"
 cleanup_stuck_jobs:
-  cron: "43 14 * * *"
-  class: "JobCleanerJob"
+  cron: "14 05 * * *"
+  class: "JobCleaner"
   queue: default

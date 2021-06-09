@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong File name:
+  = @file_listing.file_name
+%p
+  %strong File path:
+  = @file_listing.file_path
+%p
+  %strong Last modified:
+  = @file_listing.last_modified
+= link_to 'Edit', edit_file_listing_path(@file_listing)
+|
+= link_to 'Back', file_listings_path

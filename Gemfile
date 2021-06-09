@@ -34,6 +34,15 @@ group :development, :test do
 end
 
 group :development do
+
+
+  # Use Capistrano for deployment
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-sidekiq'
+  gem "capistrano-rvm"
+  gem "capistrano-passenger"
+  gem "capistrano-yarn"
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 4.1.0'
   # Display performance information such as SQL time and flame graphs for each request in your browser.
@@ -53,13 +62,6 @@ group :test do
   gem 'webdrivers'
 end
 
-# Use Capistrano for deployment
-gem 'capistrano'
-gem 'capistrano-rails'
-gem 'capistrano-sidekiq'
-gem "capistrano-rvm"
-gem "capistrano-passenger"
-gem "capistrano-yarn"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
@@ -73,3 +75,6 @@ gem 'sidekiq-status'
 gem 'sidekiq-cron'
 
 gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
+
+#haml is better
+gem "haml-rails", "~> 2.0"

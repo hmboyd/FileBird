@@ -1,0 +1,26 @@
+= form_with(model: setting) do |form|
+  - if setting.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(setting.errors.count, "error")
+        prohibited this setting from being saved:
+      %ul
+        - setting.errors.each do |error|
+          %li= error.full_message
+  .field
+    = form.label :instance_name
+    = form.text_field :instance_name
+  .field
+    = form.label :ftp_server
+    = form.text_field :ftp_server
+  .field
+    = form.label :ftp_port
+    = form.number_field :ftp_port
+  .field
+    = form.label :username
+    = form.text_field :username
+  .field
+    = form.label :ftp_password
+    = form.text_field :ftp_password
+  .actions
+    = form.submit

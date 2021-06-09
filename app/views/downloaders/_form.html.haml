@@ -1,0 +1,26 @@
+= form_with(model: downloader) do |form|
+  - if downloader.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(downloader.errors.count, "error")
+        prohibited this downloader from being saved:
+      %ul
+        - downloader.errors.each do |error|
+          %li= error.full_message
+  .field
+    = form.label :ftp_path
+    = form.text_field :ftp_path
+  .field
+    = form.label :rename
+    = form.check_box :rename
+  .field
+    = form.label :rename_prefix
+    = form.text_field :rename_prefix
+  .field
+    = form.label :setting_id
+    = form.text_field :setting_id
+  .field
+    = form.label :interval
+    = form.text_field :interval
+  .actions
+    = form.submit
