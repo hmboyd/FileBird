@@ -9,6 +9,7 @@
       <th>Rename</th>
       <th>Rename prefix</th>
       <th>Setting</th>
+      <th>Priority</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,6 +21,7 @@
         <td><%= downloader.rename %></td>
         <td><%= downloader.rename_prefix %></td>
         <td><%= downloader.setting_id %></td>
+        <td><%= downloader.interval %></td>
         <td><%= link_to 'Show', downloader %></td>
         <td><%= link_to 'Edit', edit_downloader_path(downloader) %></td>
         <td><%= link_to 'Destroy', downloader, method: :delete, data: { confirm: 'Are you sure?' } %></td>

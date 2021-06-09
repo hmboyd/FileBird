@@ -6,7 +6,17 @@ class FtpDownloaderJob < ApplicationJob
 
 
   def perform(downloader)
+
+
+
     download_source = Downloader.find(downloader)
+    logger.info "setting downloader to processing"
+
+    logger.debug "#{download_source.processing_status}"
+    download_source.processing_status = "true"
+    download_source.save
+    logger.debug "setting downloader with ID #{downloader} processing set to #{download_source.processing_status.to_s}"
+
     logger.info "Starting downloader"
     logger.debug "FTP Instance name: #{download_source.setting.instance_name}"
     ftp = Net::FTP.new
@@ -33,6 +43,7 @@ class FtpDownloaderJob < ApplicationJob
         logger.info "not downloading, file (#{file}), found in databse."
         if FileListing.find_by(file_name: file).last_modified < date_modified
           logger.info "file on FTP site is newer, downloading updated version!"
+          logger.debug "file is #{download_source.setting.instance_name} / #{download_source.ftp_path}/#{file}"
           ftp.getbinaryfile(file, "public/downloads/#{file}")
           logger.debug "downloaded, moving file to #{final_path}#{file}"
           FileUtils.mv("public/downloads/#{file}", "#{final_path}#{file}")
@@ -60,7 +71,17 @@ class FtpDownloaderJob < ApplicationJob
     end
     logger.info "closing FTP session!"
     ftp.close
+    logger.info "removing processing_status"
+
+    #logger.debug download_source.processing_status
+    download_source.processing_status = "false"
+    download_source.save
+    #dl_status = download_source.processing_status.to_s
+    logger.debug "setting downloader with ID #{downloader} processing set to #{download_source.processing_status.to_s}"
+
   end
   logger.info "Done with FTP downloading Job"
   puts "DONE!"
+
+
 end
