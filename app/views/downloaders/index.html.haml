@@ -1,24 +1,33 @@
 %p#notice= notice
-%h1 Downloaders
-%table
-  %thead
-    %tr
-      %th Ftp path
-      %th Rename
-      %th Rename prefix
-      %th Setting
-      %th Priority
-      %th{:colspan => "3"}
-  %tbody
-    - @downloaders.each do |downloader|
-      %tr
-        %td= downloader.ftp_path
-        %td= downloader.rename
-        %td= downloader.rename_prefix
-        %td= downloader.setting_id
-        %td= downloader.interval
-        %td= link_to 'Show', downloader
-        %td= link_to 'Edit', edit_downloader_path(downloader)
-        %td= link_to 'Destroy', downloader, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Downloader', new_downloader_path
+
+
+%div{:class => "row"}
+  %div{:class => "col"}
+    %h1 Downloaders
+
+    %br/
+    = link_to 'New Downloader', new_downloader_path, :class => "button primary"
+
+
+    %table{:class => "striped"}
+      %thead
+        %tr
+          %th Ftp path
+          %th Rename
+          %th Rename prefix
+          %th Instance
+          %th Priority
+          %th Last Download
+          %th{:colspan => "3"}
+      %tbody
+        - @downloaders.each do |downloader|
+          %tr
+            %td= downloader.ftp_path
+            %td= downloader.rename
+            %td= downloader.rename_prefix
+            %td= downloader.setting.instance_name
+            %td= downloader.interval
+            %td= downloader.start_time
+            %td= link_to 'Show', downloader
+            %td= link_to 'Edit', edit_downloader_path(downloader)
+            %td= link_to 'Destroy', downloader, method: :delete, data: { confirm: 'Are you sure?' }
