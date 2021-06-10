@@ -51,11 +51,11 @@ class ManualDownloadJob < ApplicationJob
 
           logger.info "^^^^^^^^^^^^^^^^Manual Re-Download^^^^^^^^^^^^^^^^^^^^^^"
           logger.debug "file is #{download_source.setting.instance_name} / #{download_source.ftp_path}/#{file}"
-          ftp.getbinaryfile(file, "public/downloads/#{file}")
-          logger.debug "downloaded, moving file to #{final_path}#{file}"
-          logger.debug "sleeping for 3 seconds"
-          sleep 3
-          FileUtils.cp("public/downloads/#{file}", "#{final_path}#{file}")
+          ftp.getbinaryfile(file, "public/downloads#{download_source.ftp_path}/#{file}")
+          #logger.debug "downloaded, moving file to #{final_path}#{file}"
+        #  logger.debug "sleeping for 3 seconds"
+        #  sleep 3
+          #FileUtils.cp("public/downloads/#{file}", "#{final_path}#{file}")
           logger.debug "updating file_listings database with new date modified"
           filedata = FileListing.find_by(file_name: file)
           filedata.last_modified = date_modified
@@ -66,11 +66,11 @@ class ManualDownloadJob < ApplicationJob
       else
         logger.info "Manual download of new files started"
         logger.debug "new file, downloading #{file}"
-        ftp.getbinaryfile(file, "public/downloads/#{file}")
+        ftp.getbinaryfile(file, "public/downloads#{download_source.ftp_path}/#{file}")
         logger.info  "new file downloaded #{file}"
-        logger.debug "sleeping for 3 seconds"
-        sleep 3
-        FileUtils.cp("public/downloads/#{file}", "#{final_path}#{file}")
+      #  logger.debug "sleeping for 3 seconds"
+    #    sleep 3
+        #FileUtils.mv("public/downloads/#{file}", "#{final_path}#{file}")
         logger.debug "creating new file listing"
         filedata = FileListing.new
         filedata.file_name = file
@@ -90,6 +90,9 @@ class ManualDownloadJob < ApplicationJob
     #dl_status = download_source.processing_status.to_s
     logger.debug "setting downloader with ID #{downloader} processing set to #{download_source.processing_status.to_s}"
   logger.info "Done with FTP downloading Job"
+
+  logger.debug "moving all files to import directory"
+  FileUtils.mv(Dir.glob("public/downloads#{download_source.ftp_path}/*.wav"), "#{final_path}")
   end
   logger.info "Done with FTP downloading Job"
   puts "DONE!"
