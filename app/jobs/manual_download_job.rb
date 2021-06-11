@@ -67,7 +67,7 @@ class ManualDownloadJob < ApplicationJob
       else
         logger.info "Manual download of new files started"
         logger.debug "new file, downloading #{file}"
-        ftp.getbinaryfile(file, "public/downloads#{download_source.ftp_path}/PX#{file}")
+        ftp.getbinaryfile(file, "public/downloads/#{file}")
         logger.info  "new file downloaded #{file}"
       #  logger.debug "sleeping for 3 seconds"
     #    sleep 3
