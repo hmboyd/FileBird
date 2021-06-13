@@ -45,9 +45,10 @@ class FtpDownloaderJob < ApplicationJob
       if FileListing.find_by(file_name: file).present?
         logger.info "file (#{file}), found in databse."
         if FileListing.find_by(file_name: file).last_modified < date_modified
-          logger.info "^^^^^^^^^^^^^^^^file on FTP site is newer, downloading updated version!^^^^^^^^^^^^^^^^^^^^^^"
+          logger.info "^^#{file} is newer on FTP source than in our databse, downloading updated file"
           logger.debug "file is #{download_source.setting.instance_name} / #{download_source.ftp_path}/#{file}"
           ftp.getbinaryfile(file, "public/downloads/#{file}")
+          DownloadLogger.info "downloaded #{file} at #{Time.now} - FTP Newer"
           logger.debug "downloaded, moving file to #{final_path}#{file}"
           logger.debug "sleeping for 3 seconds"
           sleep 3
@@ -62,6 +63,7 @@ class FtpDownloaderJob < ApplicationJob
       else
         logger.debug "new file, downloading #{file}"
         ftp.getbinaryfile(file, "public/downloads/#{file}")
+        DownloadLogger.info "downloaded #{file} at #{Time.now} - Never before seen"
         logger.info  "new file downloaded #{file}"
         logger.debug "sleeping for 3 seconds"
         sleep 3
@@ -70,7 +72,7 @@ class FtpDownloaderJob < ApplicationJob
         filedata = FileListing.new
         filedata.file_name = file
         filedata.last_modified = date_modified
-        logger.debug "saving new file listing"
+        logger.info "saving new file listing"
         filedata.save
       end
     end

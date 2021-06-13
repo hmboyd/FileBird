@@ -52,6 +52,7 @@ class ManualDownloadJob < ApplicationJob
           logger.info "^^^^^^^^^^^^^^^^Manual Re-Download^^^^^^^^^^^^^^^^^^^^^^"
           logger.debug "file is #{download_source.setting.instance_name} / #{download_source.ftp_path}/#{file}"
           ftp.getbinaryfile(file, "public/downloads/#{file}")
+          DownloadLogger.info "downloaded #{file} at #{Time.now} - Manual Download"
           logger.debug "downloaded, moving file to #{final_path}#{file}"
         #  logger.debug "sleeping for 3 seconds"
         #  sleep 3
@@ -68,6 +69,7 @@ class ManualDownloadJob < ApplicationJob
         logger.info "Manual download of new files started"
         logger.debug "new file, downloading #{file}"
         ftp.getbinaryfile(file, "public/downloads/#{file}")
+        DownloadLogger.info "downloaded #{file} at #{Time.now} - Manual Download (never before seen)"
         logger.info  "new file downloaded #{file}"
       #  logger.debug "sleeping for 3 seconds"
     #    sleep 3

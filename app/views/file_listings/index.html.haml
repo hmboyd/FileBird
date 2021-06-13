@@ -3,9 +3,12 @@
 %table
   %thead
     %tr
-      %th File name
-      %th File path
-      %th Last modified
+      %th
+        = link_to "File Name", :sort => "file_name"
+      %th
+        = link_to "File path", :sort => "file_path"
+      %th
+        = link_to "Last modified", :sort => "last_modified"
       %th{:colspan => "3"}
   %tbody
     - @file_listings.each do |file_listing|

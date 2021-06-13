@@ -3,7 +3,7 @@ class FileListingsController < ApplicationController
 
   # GET /file_listings or /file_listings.json
   def index
-    @file_listings = FileListing.all
+    @file_listings = FileListing.order(params[:sort])
   end
 
   # GET /file_listings/1 or /file_listings/1.json
